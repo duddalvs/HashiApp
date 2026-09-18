@@ -1,0 +1,16 @@
+01  |  VISÃO MOBILE
+Hashimoto Frota
+Interface desenhada para uso rápido em campo.
+01
+Entrada
+Marca + caminhão
+02
+Registro
+Equipe e veículo
+03
+Manutenção
+Serviço e custo
+Navegação fixa no rodapé
+Dois botões sempre disponíveis: Registro e Manutenção.
+O histórico fica no cabeçalho, sem ocupar espaço do fluxo principal.
+HASHIMOTO FROTA  |  01

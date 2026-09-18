@@ -1,0 +1,42 @@
+import { StyleSheet } from 'react-native';
+export const colors = {
+  navy: '#0b2c44',
+  orange: '#ff6200',
+  orangeText: '#bd4700',
+  orangeSoft: '#fff0e7',
+  background: '#f5f8fa',
+  white: '#ffffff',
+  line: '#d9e3e9',
+  muted: '#607789',
+  blueSoft: '#e9f2f6',
+  error: '#b42318',
+  green: '#176b44',
+  greenSoft: '#eaf7ef',
+  homeBackground: '#f7f9fa',
+  homeInk: '#061c36',
+  homeMuted: '#536f91',
+  homeLine: '#d5e2f2',
+};
+export const ui = StyleSheet.create({
+  title: { fontSize: 28, fontWeight: '800', color: colors.navy, letterSpacing: -0.7 },
+  subtitle: { fontSize: 15, lineHeight: 23, color: colors.muted, marginTop: 6 },
+  label: { color: colors.navy, fontSize: 15, fontWeight: '700', marginBottom: 8 },
+  field: {
+    minHeight: 56,
+    borderWidth: 1.3,
+    borderColor: colors.line,
+    borderRadius: 12,
+    paddingHorizontal: 15,
+    backgroundColor: colors.white,
+    color: colors.navy,
+    fontSize: 16,
+  },
+  error: { color: colors.error, fontSize: 13, lineHeight: 19, marginTop: 5 },
+  card: {
+    backgroundColor: colors.white,
+    borderWidth: 1,
+    borderColor: colors.line,
+    borderRadius: 18,
+    padding: 18,
+  },
+});

@@ -1,0 +1,17 @@
+07  |  COMPONENTE
+Dropdown pesquisável
+O usuário digita para encontrar, mas só confirma tocando em uma opção.
+HASHIMOTO
+FROTA
+Registro
+Exemplo de campo aberto
+Contrato
+CTR-2026-014
+Digite para filtrar
+CTR-2026-014
+CTR-2026-022
+CTR-2026-031
+A lista reduz as opções conforme o texto digitado.
+Registro
+Manutenção
+HASHIMOTO FROTA  |  07

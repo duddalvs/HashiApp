@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Hashimoto: iniciar Expo Go",
+      "type": "shell",
+      "command": "npm.cmd start",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Hashimoto: abrir versão web",
+      "type": "shell",
+      "command": "npm.cmd run web",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Hashimoto: verificar TypeScript",
+      "type": "shell",
+      "command": "npm.cmd run typecheck",
+      "problemMatcher": "$tsc"
+    },
+    {
+      "label": "Hashimoto: testar regras e banco",
+      "type": "shell",
+      "command": "npm.cmd test",
+      "problemMatcher": []
+    }
+  ]
+}

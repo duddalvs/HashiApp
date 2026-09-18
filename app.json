@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "Hashi App",
+    "slug": "hashimoto-frota",
+    "version": "0.1",
+    "orientation": "portrait",
+    "scheme": "hashimotofrota",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/iconn-launcher.png",
+    "android": {
+      "package": "com.hashimoto.frota",
+      "versionCode": 3,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/iconn-adaptive.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/iconn-launcher.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-hashi-app.png",
+          "imageWidth": 220,
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      "@react-native-community/datetimepicker",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true,
+            "enablePngCrunchInReleaseBuilds": true,
+            "useLegacyPackaging": true,
+            "enableBundleCompression": true,
+            "buildArchs": ["armeabi-v7a", "arm64-v8a"]
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "15fd53c4-415d-4545-aa0e-9d13cabf71fa"
+      }
+    },
+    "owner": "duddalvs"
+  }
+}

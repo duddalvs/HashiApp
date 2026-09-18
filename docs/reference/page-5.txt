@@ -1,0 +1,25 @@
+05  |  FLUXO PRINCIPAL
+Manutenção da frota
+Todos os dados importantes cabem em uma tela rolável.
+HASHIMOTO
+FROTA
+Manutenção
+Registre o serviço realizado
+Data
+09/09/2026
+Tipo de manutenção
+Preventiva
+Motorista
+Carlos Oliveira
+Contrato
+CTR-2026-014
+Placa
+RTE-4J28
+Modelo do veículo
+Mercedes Atego
+Custo
+R$ 480,00
+Salvar manutenção
+Registro
+Manutenção
+HASHIMOTO FROTA  |  05

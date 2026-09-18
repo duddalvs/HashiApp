@@ -1,0 +1,23 @@
+04  |  FLUXO PRINCIPAL
+Registro da frota
+Preenchimento vertical, com campos objetivos e pesquisáveis.
+HASHIMOTO
+FROTA
+Registro
+Cadastre uma equipe e seu veículo
+Data
+09/09/2026
+Contrato
+CTR-2026-014
+Número de equipes
+1
+EQUIPE 1
+Responsável e placa do veículo
+Responsável
+João da Silva
+Placa do veículo
+RTE-4J28
+Salvar registro
+Registro
+Manutenção
+HASHIMOTO FROTA  |  04

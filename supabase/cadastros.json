@@ -1,0 +1,540 @@
+{
+  "veiculos": [
+    {
+      "placa": "BBE9E35",
+      "modelo": "PENDENTE - ALTERAR 1",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "BBE9E90",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "BBH1E97",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "BBH1E99",
+      "modelo": "M.BENZ/ACCELO 815",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "BDU9C81",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "BDX3B59",
+      "modelo": "Ford K 1.0 SE/SE PLUS Tivct flex 5P",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "BDY9I58",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "BEA5H11",
+      "modelo": "VW/9. 170 DRC 4X2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "BEY3F01",
+      "modelo": "VW/9. 170 DRC 4X2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "CZA1C09",
+      "modelo": "GMC/16.220",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "ELW7J98",
+      "modelo": "FIAT/STRADA FREEDOM CC",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "FHB8H95",
+      "modelo": "VW/8. 160 DRC 4X2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "FJT9I54",
+      "modelo": "PENDENTE - ALTERAR 2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "FOW2B35",
+      "modelo": "PENDENTE - ALTERAR 3",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "GBQ9366",
+      "modelo": "VW/8. 160 DRC 4X2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "GEI8C98",
+      "modelo": "VW/NOVA SAVEIRO RB MBVS",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "GIG9B72",
+      "modelo": "PENDENTE - ALTERAR 4",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "JAJ1C55",
+      "modelo": "VW/9. 170 DRC 4X2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KNC1076",
+      "modelo": "PENDENTE - ALTERAR 5",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KNH7B51",
+      "modelo": "PENDENTE - ALTERAR 6",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KQS8B71",
+      "modelo": "M. BENZ/ATEGO 2430",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KRK8F40",
+      "modelo": "PENDENTE - ALTERAR 7",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KRL8G19",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KRN6A41",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KRN6J98",
+      "modelo": "PENDENTE - ALTERAR 8",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KTV1201",
+      "modelo": "PENDENTE - ALTERAR 9",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KWM9F69",
+      "modelo": "VW/17.190 WORKER",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KXA6H28",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KXC7C13",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KXL9F47",
+      "modelo": "VW/8. 160 DRC 4X2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KXU6H41",
+      "modelo": "VW/8. 160 DRC 4X2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KYH5D78",
+      "modelo": "PENDENTE - ALTERAR 10",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KYX8A58",
+      "modelo": "VW/17 . 190 CRM 4X2 EP",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "KZF4D30",
+      "modelo": "FIAT/STRADA ADVENTURE CD",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LMH3C97",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LMH3G88",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LMO7B21",
+      "modelo": "VW/9. 170 DRC 4X2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LMP9H12",
+      "modelo": "FORD",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LMP9H23",
+      "modelo": "FORD",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LQK3B38",
+      "modelo": "M.BENZ/1718",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LQN6C18",
+      "modelo": "RENAULT/SANDERO EXP1016V",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LRB4716",
+      "modelo": "I/KIA UK2500 HD SC",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LRJ7G35",
+      "modelo": "FORD",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LRJ7G95",
+      "modelo": "FORD",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LRJ9B37",
+      "modelo": "FORD",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSG7222",
+      "modelo": "M.BENZ/ATEGO 1719",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSG7C27",
+      "modelo": "M.BENZ/ATEGO 1719",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSJ9C70",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSK7B48",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSK7J36",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSK8E20",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSM9J59",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSN8D43",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSP7F42",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LSV7340",
+      "modelo": "HYUNDAI/HR HDB",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LTD6433",
+      "modelo": "HYUNDAI/HR HDB",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LTQ7F95",
+      "modelo": "VW 15.190",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LTV8D48",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LTX9J56",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LUE3B62",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LUH8E33",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LUL8A32",
+      "modelo": "PENDENTE - ALTERAR 11",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LUL9I66",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LUM3D11",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LUO1G86",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "LUT7G94",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "QUJ3E09",
+      "modelo": "SAVEIRO",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RFY4C30",
+      "modelo": "PENDENTE - ALTERAR 12",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RIX1J87",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RJA0I50",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RJF4J47",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RJG0F36",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RJO0I33",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RJP3C12",
+      "modelo": "VW/9. 170 DRC 4X2",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RJW0J69",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RKB0A29",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RKE3H26",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RKI3I58",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "RKK0A22",
+      "modelo": "M.BENZ/ACCELO 815 CE",
+      "tipo": "veiculo"
+    },
+    {
+      "placa": "SP-6539",
+      "modelo": "RETROESCAVADEIRA",
+      "tipo": "equipamento"
+    },
+    {
+      "placa": "SP-7188",
+      "modelo": "MINI RETROESCAVADEIRA",
+      "tipo": "equipamento"
+    },
+    {
+      "placa": "SSD8A74",
+      "modelo": "VW/26.260 CRM 6X2",
+      "tipo": "veiculo"
+    }
+  ],
+  "funcionarios": [
+    "Parado na Base",
+    "Ademilson Cezar de Mendonça",
+    "Ademir Jorge Barbosa da Silva",
+    "Adriano Firmino da Silva",
+    "Adriana da Silva Santos",
+    "Afonso Alves de Almeida",
+    "Alberto da Silva Rodrigues",
+    "Anderson da Conceição Fonseca",
+    "Anderson Donato Costa",
+    "André Luiz da Silva Pereira",
+    "Antonio Vanderleiz da Paz",
+    "Auricélio Andrade Oliveira",
+    "Carlos de Oliveira Barreto",
+    "Carlos Eduardo Alves Germano",
+    "Carlos Renato Dantas do Nascimento",
+    "Carlos Vinicius Polito Rodrigues",
+    "Claudio Cordeiro de Sousa",
+    "Clebisom de Azevedo Vieira",
+    "Daniel Gomes da Silva",
+    "Davi Bezerra Félix",
+    "David Decroix Viana",
+    "Davi Venancio Rodrigues",
+    "Djavan Henrique Vieira Grilo",
+    "Edilberto Sá Vianna da Silva Junior",
+    "Edreque Feliciano da Silva Santos",
+    "Edy Carlos Abreu Barreto",
+    "Erick Moraes Muniz",
+    "Eumir Silva da Gama Junior",
+    "Fabiano Suguiyama Vieira",
+    "Fabio Lima de Amorim",
+    "Fernando Junior Abreu do Nascimento",
+    "Fernando Pereira dos Prazeres",
+    "Fernando Ribeiro da Silva",
+    "Gabriel Álvaro Moreira",
+    "Gabriel Henrique da Silva Neves",
+    "Gilberto Bastos",
+    "Gilmar Miguel Rodrigues Soares",
+    "Gustavo Martins Gomes da Silva",
+    "Israel Rodrigues de Oliveira",
+    "Jean de Souza Silva",
+    "Jhoenis Lima Nunes",
+    "Jocimar de Araújo Eufrásio",
+    "Jocimar Lino Castro Areas",
+    "Joel Guilherme de Souza Junior",
+    "Johnatan Luiz Gomes de França",
+    "Jonhcklem Barreto da Cruz",
+    "José Baia da Silva",
+    "José Edvanio da Silva",
+    "Julio Cesar Duarte Pereira",
+    "Juraci Martins de Araújo",
+    "Leandro Franciscus Azeredo Alves da Silva",
+    "Leandro Teixeira Santos",
+    "Lucas Cordeiro Pereira",
+    "Lucas Melgaço da Silva",
+    "Lucas Severiano de Oliveira Caldas",
+    "Luis Henrique Nascimento dos Santos",
+    "Luis Jose Pereira",
+    "Luiz Felipe Costa Soares Rocha",
+    "Luiz Fernando de Souza Rabello",
+    "Luiz Ricardo Mazzucchelli Ferreira",
+    "Marcio Flores dos Santos",
+    "Marcos Alexandre Souza da Silva",
+    "Marcos Antonio Cordeiro Felismino",
+    "Marcos Antonio Garcez Serqueira",
+    "Mauro Cesar Alves Ferreira de Souza",
+    "Max Sandro da Costa Figueredo",
+    "Maximiliano da Silva Pereira",
+    "Paulo Ricardo Tito",
+    "Pedro Paulo Mendes Baldez",
+    "Ramon Lopes do Livramento da Silva",
+    "Reinaldo da Silva Barros Junior",
+    "Roberto David Silva",
+    "Rodrigo Melo",
+    "Robson Luiz Ribeiro Pimentel",
+    "Robson Pargas Novaes",
+    "Rodrigo dos Santos Dias",
+    "Rodrigo Eduardo Carvalho de Oliveira",
+    "Rogerio Rangel Rosa",
+    "Severino Alves Barreto",
+    "Sérgio Reis de Jesus Bittencourt",
+    "Sidnei Carvalho da Silva",
+    "Silvanio Madureira Campos",
+    "Thiago Alexandre Frutuoso de Lima",
+    "Thiago Barcello Alves",
+    "Thomaz da Silva",
+    "Túlio da Silva Mariano",
+    "Uilliam Simões Fernandes",
+    "Vagner Soares Marinho",
+    "Valter Pereira da Silva",
+    "Valdinei Machado De Laia",
+    "Vitor Cesar Silva Domingos Oliveira",
+    "Wagner Souza de Oliveira",
+    "Wagner José da Silva",
+    "Wellington Tavares",
+    "Wallace Felizardo de Queiroz",
+    "Walter Cardoso Gonzaga",
+    "Wanderson Sabino Cabral",
+    "William de Souza Campos Chagas",
+    "Willis Martins Ferreira",
+    "Willye Cristiano Pessanha Ramos",
+    "Wilson da Silva Ramos",
+    "Wilson Vieira Mendes",
+    "Wislley Costa Santos"
+  ],
+  "contratos": [
+    "Belford Roxo",
+    "Buri",
+    "Campos dos Goytacazes",
+    "Duque de Caxias",
+    "Magé",
+    "Natal",
+    "Paty do Alferes",
+    "São Gonçalo",
+    "Saquarema"
+  ],
+  "tipos_manutencao": [
+    "Preventiva",
+    "Corretiva",
+    "Revisão",
+    "Pneus",
+    "Elétrica",
+    "Mecânica",
+    "Funilaria",
+    "Outros"
+  ]
+}

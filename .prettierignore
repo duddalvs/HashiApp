@@ -1,0 +1,8 @@
+node_modules
+.tools
+.expo
+dist
+test-results
+package-lock.json
+docs/reference
+supabase

@@ -1,0 +1,18 @@
+03  |  TELA PRINCIPAL
+Escolha o registro
+Depois do carregamento, o usuário chega a este menu inicial.
+HASHIMOTO
+FROTA
+Olá, equipe!
+Que tipo de registro você
+pretende utilizar hoje?
+Toque em uma opção para começar.
+Registro
+Equipe e veículo
+Manutenção
+Serviço e custo
+Histórico
+Consulte os registros enviados
+Registro
+Manutenção
+HASHIMOTO FROTA  |  03
