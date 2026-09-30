@@ -8,6 +8,7 @@ export type IconName =
   | 'menu'
   | 'chevron'
   | 'search'
+  | 'filter'
   | 'close'
   | 'calendar'
   | 'check'
@@ -22,11 +23,13 @@ export type IconName =
   | 'eye'
   | 'eye-off';
 const paths: Record<Exclude<IconName, 'clipboard' | 'search' | 'calendar'>, string> = {
-  truck: 'M3 17H2V5h12v12H8M14 9h4l4 4v4h-1M14 17h2M17 9v4h5M8 17a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM21 17a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z',
+  truck:
+    'M3 17H2V5h12v12H8M14 9h4l4 4v4h-1M14 17h2M17 9v4h5M8 17a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM21 17a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z',
   wrench: 'M14.5 5.5a5 5 0 0 0-6 6L3 17a2.8 2.8 0 0 0 4 4l5.5-5.5a5 5 0 0 0 6-6l-3 3-4-4 3-3Z',
   history: 'M3 11a9 9 0 1 1 2.8 7M3 4v7h7M12 7v5l3 2',
   menu: 'M4 6h16M4 12h16M4 18h16',
   chevron: 'm9 5 7 7-7 7',
+  filter: 'M3 4h18l-7 8v7l-4 2v-9L3 4Z',
   close: 'm6 6 12 12M6 18 18 6',
   check: 'm4 12 5 5L20 6',
   logout: 'M10 4H4v16h6M14 8l4 4-4 4M8 12h11',

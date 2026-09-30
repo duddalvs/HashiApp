@@ -38,6 +38,7 @@ for (const person of [
       return route.fulfill({ status: 400, json: { message: 'RPC fora do cenário de teste.' } });
     });
     await page.goto('/login');
+    await expect(page.getByTestId('app-version')).toHaveText('Hashi App · versão 0.1');
     await page.getByRole('textbox', { name: 'Usuário', exact: true }).fill(person.login);
     await page.getByRole('button', { name: 'Mostrar senha', exact: true }).click();
     await page.getByRole('textbox', { name: 'Senha', exact: true }).fill('SenhaSomenteDeTeste!123');
@@ -48,6 +49,7 @@ for (const person of [
     await expect(page.getByRole('heading', { name: `Olá, ${person.saudacao}!` })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
     await page.getByRole('button', { name: 'Abrir menu' }).click();
+    await expect(page.getByTestId('app-version')).toHaveText('Hashi App · versão 0.1');
     await expect(
       page.getByText(`${person.nome} ${person.sobrenome}`, { exact: true }),
     ).toBeVisible();

@@ -2,7 +2,7 @@ import { useState, type PropsWithChildren } from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { usePathname, useRouter } from 'expo-router';
-import Constants from 'expo-constants';
+import { AppVersion } from './AppVersion';
 import { Brand } from './Brand';
 import { Icon } from './Icon';
 import { Button } from './Button';
@@ -138,10 +138,7 @@ export function AppShell({ children }: PropsWithChildren) {
             />
             {!!error && <ErrorNotice message={error} />}
             <Button title="Sair da conta" icon="logout" loading={busy} onPress={exit} />
-            <Text style={styles.version}>
-              {Constants.expoConfig?.name ?? 'Hashi App'} · versão{' '}
-              {Constants.expoConfig?.version ?? '0.1'}
-            </Text>
+            <AppVersion />
           </View>
         </View>
       </Modal>
@@ -226,5 +223,4 @@ const styles = StyleSheet.create({
   menuTitle: { color: colors.navy, fontSize: 23, fontWeight: '800' },
   userName: { color: colors.navy, fontSize: 18, fontWeight: '700' },
   accountRole: { color: colors.muted, marginBottom: 8, lineHeight: 22 },
-  version: { color: colors.muted, fontSize: 12, textAlign: 'center', marginTop: 10 },
 });

@@ -1,37 +1,37 @@
 # Instalar o aplicativo no Android
 
-Versão **0.1**, gerada em **18/09/2026**: [baixar APK (23,4 MB)](https://expo.dev/artifacts/eas/zydxBaOzbqacEchCpw3sdtBRuDtwzQIM3HFDlVDeWno.apk). Arquivo local: `entrega/Hashi-App-0.1.apk`.
+Versão **0.1**, compilação **8**, gerada em **25/09/2026**: [baixar APK (23,4 MB)](https://expo.dev/artifacts/eas/vtfONwZgzUtcid4OXmi9-VMOSWjEct5QubtLwMdKads.apk). Arquivo: `entrega/Hashi-App-0.1-b8.apk`.
 
-**Alteração posterior no código:** o Histórico passou a mostrar a hora original do envio ao lado da data em Registros e Manutenções. Essa mudança foi validada no navegador, mas ainda exige nova compilação para aparecer no aplicativo instalado; não está no APK deste link.
+## Atualização da Manutenção
 
-O aplicativo se chama **Hashi App** e usa a imagem fornecida em `assets/iconn.png` como ícone, centralizada sem cortar o desenho. O menu mostra **Hashi App · versão 0.1**; a versão informada ao Android também é **0.1**. Inclui a pesquisa de funcionários por partes do nome, em ordem, com destaque.
+Inclui **Observação (opcional)** abaixo de Tipo de manutenção e antes de Valor, com contador e limite de **40 caracteres**. O texto é salvo no Supabase, pode ser alterado ou limpo na edição e aparece nos detalhes do Histórico quando preenchido. A migração correspondente já está aplicada; registros anteriores continuam válidos e não recebem texto inventado.
 
-1. Baixe o APK ou transfira o arquivo da pasta `entrega` para o celular.
-2. Abra o arquivo e toque em **Instalar** ou **Atualizar**. Se o Android solicitar, permita a instalação por esse navegador ou gerenciador de arquivos.
-3. Abra **Hashi App** e entre com seu usuário e senha existentes.
+As melhorias anteriores de busca de motoristas, seletor em camada do aplicativo e sugestão do último veículo na Alocação foram preservadas. A observação não altera motorista, placa, custo, autoria ou permissões.
 
-Para atualizar o APK anterior, escolha **Atualizar**, sem desinstalar antes. O pacote `com.hashimoto.frota` e o certificado de assinatura foram preservados. O código interno da compilação passou de 2 para **3**; ele é separado do nome público da versão **0.1**.
+## Instalação
 
-Compatível com celulares Android ARM de 32 ou 64 bits, API 24 ou superior. Não instala no iPhone. O aplicativo não depende de Expo Go nem do computador ligado; precisa de internet para autenticar, consultar e salvar no Supabase. Os registros continuam no banco na nuvem.
+1. Baixe **Hashi-App-0.1-b8.apk** pelo link acima no Android.
+2. Abra o arquivo e toque em **Atualizar**, sem desinstalar o aplicativo anterior. Aguarde a confirmação. Se solicitado pelo Android, permita instalar por esse navegador/gerenciador de arquivos.
+3. Confira no login ou em **Menu → Sua conta**: **Hashi App · versão 0.1 · compilação 8**.
+4. Abra **Manutenção**, escolha o tipo e confira **Observação (opcional)** logo abaixo. Preencha até 40 caracteres, salve e consulte o detalhe no Histórico.
+5. Ao editar, confira que o texto foi carregado e que é possível alterá-lo ou deixá-lo vazio.
 
-## Tamanho e verificação
+O código interno **8** é maior que os anteriores, incluindo o APK 0.2/6. Pacote `com.hashimoto.frota` e certificado de assinatura são os mesmos da compilação 7. As contas e os registros existentes são preservados. APKs antigos continuam compatíveis com o banco e não apagam uma observação ao editar outros campos; porém só a compilação 8 ou posterior exibe o novo campo.
 
-Arquivo com **23.421.863 bytes (23,4 MB; 22,3 MiB)**. Mantidas as otimizações R8, remoção de recursos não utilizados e compressão das bibliotecas nativas e do JavaScript. O tamanho continua **52,41% menor** que o APK original de 49.211.807 bytes. Isso não mede o tamanho instalado ou o desempenho no celular. A compressão do JavaScript pode afetar o tempo de abertura, conforme a [documentação do Expo](https://docs.expo.dev/versions/latest/sdk/build-properties/).
+Android ARM de 32/64 bits, API 24 ou superior. Não instala no iPhone. Não depende de Expo Go ou computador ligado; precisa de internet para autenticar, consultar e salvar no Supabase.
 
-Integridade ZIP/CRC, manifesto, versão 0.1, nome, ícones extraídos do APK, bibliotecas ARM e configuração pública do Supabase conferidos. Assinatura APK v2 e digest do conteúdo verificados com OpenSSL e verificador local do formato; mesmo certificado do APK anterior. Não foi usado `apksigner`. Relatório: `entrega/verificacao-apk-0.1.json`.
+## Verificações
 
-TypeScript, Prettier, Expo Doctor 21/21 e dois fluxos de perfil/menu no navegador aprovados. A versão no menu foi conferida em 320 px, com captura em `.tools/menu-0.1.png`.
+Arquivo com **23.428.019 bytes (23,4 MB)**. Mantidos R8, remoção de recursos, compressão de bibliotecas/JavaScript e ARM 32/64. Compilado no EAS com `--clear-cache`.
 
-SHA-256: `f71bdc651d9fef92f39634b84d56a4ddbe15d6eabe44de6bab3fc627002bd4c0`.
+Build **`110a9726-5d0a-47d6-bf06-cc78db1a055e`**, concluído em **2026-09-25T15:24:27.472Z**. Verificados ZIP/CRC, manifesto e configuração embarcada 0.1/8, nome, pacote, código da observação no bytecode Hermes, configurações públicas do Supabase, seletores anteriores, compressão e ausência de arquivos administrativos. Assinatura APK v2 e digest verificados com OpenSSL e verificador local; certificado idêntico ao APK 0.1/7. Relatório: `entrega/verificacao-apk-0.1-b8.json`.
 
-## Conferência no aparelho
+Na implementação imediatamente anterior: TypeScript, Prettier, **45 testes locais**, **dois fluxos Playwright** e teste SQL no Supabase com rollback aprovados. Limite de 40 caracteres, colagem, contador, envio, leitura/Histórico, edição/limpeza, concorrência, permissões e compatibilidade das RPCs cobertos. Expo Doctor **21/21** aprovado antes deste build. **Instalação e uso desta compilação em Android físico ainda não testados.**
 
-Instalação, abertura, desempenho e fluxos em Android físico ainda não foram testados nesta revisão. Após instalar, conferir o ícone na tela do celular, versão 0.1 no menu, login, Histórico, envio, edição e restauração da sessão ao reabrir. Use dados identificáveis de teste ao conferir gravações.
+SHA-256: `a0708e32aa167d2d79dfdc67e2d5cdca46e18306269755b3575c8890ecd5cb6c`.
 
 ## Próximas atualizações
 
-Mudanças no ícone ou código exigem nova compilação nesta configuração. Preserve o pacote e a assinatura; aumente `android.versionCode` a cada atualização. O menu lê a versão de `app.json`, evitando um texto fixo divergente. `package.json` usa `0.1.0` por compatibilidade com a versão semântica do npm; a interface e o Android usam **0.1**.
+Preservar pacote e assinatura e aumentar `android.versionCode`. Login e menu usam a configuração Expo embarcada; o manifesto web omite o código Android. Alterações de código ou ícone exigem nova compilação nesta configuração. npm usa 0.1.0, versão pública 0.1.
 
-`assets/iconn.png` é a imagem original de 119 × 74 px. `node scripts/prepare-launcher-icon.mjs` prepara os recursos quadrados `iconn-launcher.png` e `iconn-adaptive.png`, preservando a proporção e as margens do ícone adaptável. Esses recursos já acompanham o pacote enviado ao Expo.
-
-Para distribuir, envie somente o APK; não envie o projeto, arquivos de acesso ou uma cópia do banco. APKs anteriores permanecem em `entrega` como histórico.
+Para distribuir, enviar apenas o APK. Os arquivos anteriores permanecem em `entrega` como histórico; o projeto e os arquivos administrativos não são necessários no celular.

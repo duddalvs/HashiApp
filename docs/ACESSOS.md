@@ -39,6 +39,8 @@ Em 18/09/2026, foram criadas e ativadas as contas **`user_eduardo`** (Carlos Edu
 
 Ainda em 18/09/2026, foram criadas contas ativas de **funcionário** para **`user_renato`** (Carlos Renato Dantas Nascimneto), **`user_armino`** (Armino Correia Ointo Sales Netp) e **`user_mario`** (Marcio Flores dos Santos). Nomes e logins mantidos exatamente como informados pelo usuário. Os três logins e perfis foram validados pela API com as senhas fornecidas, e as sessões de teste foram encerradas. Não exigem atualização do APK; essas contas também não foram acrescentadas à cópia local de `VER-ACESSOS.cmd`.
 
+**Atualização de 21/09/2026:** o login de Marcio passou de `user_mario` para **`user_marcio`**, a pedido do usuário. Use o novo login com a mesma senha anterior; senha, ID, perfil, registros e sessões existentes foram preservados. Não exige novo APK. A edição direta da coluna `login` continua protegida; esta foi uma alteração administrativa pontual e transacional, registrada em `scripts/renomear-marcio.sql` (já executado, não reaplicar).
+
 O usuário deve ter de 3 a 40 caracteres, começar por letra e usar letras sem acentos, números ou `_`. Maiúsculas são normalizadas para minúsculas. Um nome já existente é recusado sem alterar sua senha. Todo o cadastro é transacional: se houver erro, nenhuma conta parcial é criada.
 
 Use esse comando em vez de **Insert row** em `usuarios`: ele cria o perfil e a credencial protegida juntos. Não compartilhe nem mantenha consultas salvas que contenham senhas.
@@ -61,7 +63,22 @@ Após validar o código, a pessoa tem dez minutos para definir e confirmar a sen
 
 ### Consulta local e redefinição administrativa
 
-As senhas atuais de `user_admin` e `user_pessoa1` continuam disponíveis em **VER-ACESSOS.cmd**, na pasta original do projeto. Essa é uma cópia local protegida pelo Windows, não uma leitura da senha do banco. Contas criadas posteriormente pelo SQL não são acrescentadas automaticamente a esse arquivo, e redefinições feitas no banco não atualizam essa cópia.
+As senhas originalmente guardadas de `user_admin` e `user_pessoa1` podem ser consultadas em **VER-ACESSOS.cmd**, na pasta original do projeto. Essa é uma cópia local protegida pelo Windows, não uma leitura da senha atual do banco. Contas criadas posteriormente pelo SQL não são acrescentadas automaticamente a esse arquivo, e redefinições feitas no banco não atualizam essa cópia. Uma senha mostrada por esse atalho pode, portanto, já ter sido substituída.
+
+### A senha tem prazo de validade?
+
+Não. Conferido no código e nas funções do banco em 21/09/2026: a senha definida pelo administrador ou pela recuperação permanece válida até outra troca. O aplicativo diferencia:
+
+- **Senha:** não expira automaticamente. Maiúsculas, minúsculas e espaços fazem parte dela.
+- **Sessão:** dura sete dias. Ao vencer, entre novamente com a mesma senha. Troca de senha, saída da conta, desativação ou excesso de sessões também podem encerrar o acesso salvo.
+- **Código de recuperação:** válido por trinta minutos; após validá-lo, há dez minutos para definir a nova senha. Esses prazos não são a validade da senha escolhida.
+- **Limite de tentativas:** dez falhas numa janela de quinze minutos impedem novas tentativas até terminar essa janela, inclusive com a senha correta. A mensagem informa muitas tentativas.
+
+Se a mensagem for “Usuário ou senha incorretos”, confira o login e digite a senha atual manualmente, usando o olho para conferir caracteres e espaços. Verifique se o preenchimento automático ainda usa a senha anterior. Essas são possibilidades a verificar, não uma confirmação da causa de cada falha. Informe ao administrador o usuário, a mensagem e o horário do problema, sem divulgar a senha.
+
+`gerar_codigo_recuperacao` apenas emite o código; a senha muda quando a recuperação é concluída no aplicativo. Já `definir_senha_usuario` troca a senha imediatamente pelo SQL. Se houver uma troca posterior no aplicativo, passa a valer a última senha escolhida ali, substituindo a definida antes por SQL.
+
+Teste remoto de 21/09/2026 em `supabase/tests/password-persistence-validation.sql`, com conta temporária e rollback, confirmou login após esses fluxos, logout e expiração da sessão/código. Idades de senha de 3 e 30 dias foram simuladas por timestamps; não houve espera real de dias nem alteração de senhas dos funcionários.
 
 O banco guarda somente um **hash** em `private.credenciais.senha_hash`. Não é possível recuperar a senha original a partir dele. A aplicação não tem permissão para consultar essa tabela.
 

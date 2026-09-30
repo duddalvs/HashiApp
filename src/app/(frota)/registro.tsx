@@ -3,6 +3,7 @@ import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { useRouter } from 'expo-router';
 import { DateField } from '@/components/DateField';
 import { SearchSelect } from '@/components/SearchSelect';
+import { AllocationVehicleSelect } from '@/components/AllocationVehicleSelect';
 import { FormScreen } from '@/components/FormScreen';
 import { SuccessDialog } from '@/components/Feedback';
 import { useFleet, newRegistration } from '@/providers/FleetProvider';
@@ -20,7 +21,7 @@ export default function RegistrationScreen({
 }: { initialValue?: Registration; onEdited?: () => void; onCancel?: () => void } = {}) {
   const router = useRouter();
   const { demo } = useAuth();
-  const { catalogs, registration, setRegistration, saveRegistration } = useFleet();
+  const { catalogs, employeeOptions, registration, setRegistration, saveRegistration } = useFleet();
   const [editData, setEditData] = useState(() => initialValue ?? newRegistration());
   const editing = !!initialValue;
   const data = editing ? editData : registration;
@@ -145,11 +146,13 @@ export default function RegistrationScreen({
                     ),
                   })
                 }
-                options={catalogs.employees.map((e) => ({ id: e.id, label: e.nome }))}
+                options={employeeOptions}
                 error={errors[`employee-${index}`]}
                 disabled={saving}
               />
-              <SearchSelect
+              <AllocationVehicleSelect
+                driverId={team.responsavel_id}
+                entryId={data.id}
                 label={`Equipe ${index + 1} — Placa do veículo`}
                 value={team.veiculo_id}
                 onChange={(id) =>
@@ -157,11 +160,6 @@ export default function RegistrationScreen({
                     teams: data.teams.map((t, i) => (i === index ? { ...t, veiculo_id: id } : t)),
                   })
                 }
-                options={catalogs.vehicles.map((v) => ({
-                  id: v.id,
-                  label: v.placa,
-                  description: v.modelo,
-                }))}
                 error={errors[`vehicle-${index}`]}
                 disabled={saving}
               />

@@ -9,7 +9,7 @@ import { Icon } from '@/components/Icon';
 import { useFleet, newMaintenance } from '@/providers/FleetProvider';
 import { useAuth } from '@/providers/AuthProvider';
 import { colors, ui } from '@/lib/theme';
-import { validateMaintenance, type Errors } from '@/lib/validation';
+import { MAINTENANCE_NOTE_LIMIT, validateMaintenance, type Errors } from '@/lib/validation';
 import { costFromDigits, currency, digitsOnly, friendlyError } from '@/lib/format';
 import { Button } from '@/components/Button';
 import type { Maintenance } from '@/types/models';
@@ -20,7 +20,7 @@ export default function MaintenanceScreen({
 }: { initialValue?: Maintenance; onEdited?: () => void; onCancel?: () => void } = {}) {
   const router = useRouter();
   const { demo } = useAuth();
-  const { catalogs, maintenance, setMaintenance, saveMaintenance } = useFleet();
+  const { catalogs, employeeOptions, maintenance, setMaintenance, saveMaintenance } = useFleet();
   const [editData, setEditData] = useState(() => initialValue ?? newMaintenance());
   const editing = !!initialValue;
   const data = editing ? editData : maintenance;
@@ -142,7 +142,7 @@ export default function MaintenanceScreen({
             value={data.driverId}
             onChange={(driverId) => patch({ driverId, driverUnidentified: false })}
             placeholder={data.driverUnidentified ? 'Motorista não identificado' : undefined}
-            options={catalogs.employees.map((e) => ({ id: e.id, label: e.nome }))}
+            options={employeeOptions}
             error={errors.driver}
             disabled={saving || data.driverUnidentified}
           />
@@ -170,6 +170,31 @@ export default function MaintenanceScreen({
           disabled={saving}
         />
         <View>
+          <View style={styles.noteHeading}>
+            <Text style={ui.label}>Observação (opcional)</Text>
+            <Text style={styles.noteCount}>
+              {Array.from(data.note ?? '').length}/{MAINTENANCE_NOTE_LIMIT}
+            </Text>
+          </View>
+          <TextInput
+            accessibilityLabel="Observação"
+            accessibilityHint="Opcional. Máximo de 40 caracteres."
+            value={data.note ?? ''}
+            onChangeText={(text) =>
+              patch({ note: Array.from(text).slice(0, MAINTENANCE_NOTE_LIMIT).join('') })
+            }
+            // Native maxLength counts UTF-16 units; the handler limits Unicode characters.
+            maxLength={MAINTENANCE_NOTE_LIMIT * 2}
+            editable={!saving}
+            placeholder="Adicione uma observação"
+            placeholderTextColor={colors.muted}
+            multiline
+            textAlignVertical="top"
+            style={[ui.field, styles.note, errors.note && { borderColor: colors.error }]}
+          />
+          {!!errors.note && <Text style={ui.error}>{errors.note}</Text>}
+        </View>
+        <View>
           <Text style={ui.label}>Valor</Text>
           <TextInput
             accessibilityLabel="Valor"
@@ -196,6 +221,9 @@ export default function MaintenanceScreen({
   );
 }
 const styles = StyleSheet.create({
+  noteHeading: { flexDirection: 'row', justifyContent: 'space-between', gap: 8 },
+  noteCount: { color: colors.muted, fontSize: 12 },
+  note: { minHeight: 82, paddingVertical: 14 },
   driverOption: { minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 10 },
   driverOptionText: { flex: 1, color: colors.navy, fontSize: 15 },
   checkbox: {

@@ -13,6 +13,7 @@ import {
 import { Redirect, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Brand } from '@/components/Brand';
+import { AppVersion } from '@/components/AppVersion';
 import { Button } from '@/components/Button';
 import { PasswordField } from '@/components/PasswordField';
 import { ErrorNotice } from '@/components/Feedback';
@@ -123,6 +124,7 @@ export default function Login() {
           )}
           {!!(error || auth.error) && <ErrorNotice message={error || auth.error} />}
           <Button secondary title="Voltar" onPress={() => router.replace('/')} />
+          <AppVersion />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

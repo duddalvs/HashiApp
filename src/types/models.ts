@@ -38,11 +38,13 @@ export type Maintenance = {
   contractId: number | null;
   vehicleId: number | null;
   costDigits: string;
+  note?: string;
   version?: number;
 };
 export type HistoryDetail = {
   equipe?: number;
   servico?: string;
+  observacao?: string | null;
   responsavel: string | null;
   placa: string;
   modelo: string;
@@ -56,5 +58,23 @@ export type HistoryItem = {
   detalhes: HistoryDetail[];
   custo: number | null;
   created_at: string;
+  autor_nome: string;
 };
 export type HistoryFilter = 'registro' | 'manutencao';
+export type HistoryFilters = {
+  from: string;
+  to: string;
+  driverIds: number[];
+  vehicleIds: number[];
+  contractIds: number[];
+  authorIds: string[];
+  maintenanceTypeIds: number[];
+};
+export type HistoryFilterOptions = {
+  drivers: { id: number; nome: string }[];
+  vehicles: { id: number; placa: string; modelo: string }[];
+  contracts: { id: number; nome: string }[];
+  authors: { id: string; nome: string; sobrenome: string; login: string }[];
+  maintenanceTypes: { id: number; nome: string }[];
+};
+export type LastDriverVehicle = { vehicleId: number; date: string };

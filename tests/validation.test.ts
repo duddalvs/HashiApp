@@ -109,6 +109,29 @@ test('registro identifica funcionarios e veiculos repetidos apenas entre equipes
   assert.deepEqual(validateRegistration(corrected, demoCatalogs), {});
 });
 
+test('observacao opcional limita 40 caracteres Unicode na criacao e edicao', () => {
+  const base = {
+    id: 'id',
+    date: localDate(),
+    typeId: 1,
+    driverId: 1,
+    contractId: 1,
+    vehicleId: 1,
+    costDigits: '100',
+  };
+  for (const version of [undefined, 1]) {
+    for (const note of [undefined, '', 'Troca de óleo', 'á'.repeat(40), '🚚'.repeat(40)]) {
+      assert.deepEqual(validateMaintenance({ ...base, version, note }, demoCatalogs), {});
+    }
+    for (const note of ['a'.repeat(41), '🚚'.repeat(41)]) {
+      assert.match(
+        validateMaintenance({ ...base, version, note }, demoCatalogs).note,
+        /40 caracteres/,
+      );
+    }
+  }
+});
+
 test('cadastros preservam equipamentos, 12 modelos pendentes e todos os nomes', () => {
   const data = JSON.parse(readFileSync('supabase/cadastros.json', 'utf8'));
   assert.equal(data.veiculos.length, 82);

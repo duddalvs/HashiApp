@@ -9,7 +9,7 @@
     "icon": "./assets/iconn-launcher.png",
     "android": {
       "package": "com.hashimoto.frota",
-      "versionCode": 3,
+      "versionCode": 8,
       "adaptiveIcon": {
         "foregroundImage": "./assets/iconn-adaptive.png",
         "backgroundColor": "#ffffff"

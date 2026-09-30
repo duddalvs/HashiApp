@@ -6,17 +6,22 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native';
 import { useFocusEffect, useRouter, useLocalSearchParams } from 'expo-router';
 import { Icon } from '@/components/Icon';
 import { Button } from '@/components/Button';
+import { HistoryFilters } from '@/components/HistoryFilters';
+import {
+  defaultHistoryFilters,
+  historyPeriodLabel,
+  isDefaultHistoryPeriod,
+} from '@/lib/historyFilters';
 import { ErrorNotice } from '@/components/Feedback';
 import { useFleet } from '@/providers/FleetProvider';
 import { useAuth } from '@/providers/AuthProvider';
 import { colors, ui } from '@/lib/theme';
-import { currency, displayDate, displayTime, friendlyError } from '@/lib/format';
+import { currency, displayDate, displayTime, friendlyError, localDate } from '@/lib/format';
 import type { HistoryFilter, HistoryItem } from '@/types/models';
 function HistoryCard({
   item,
@@ -30,11 +35,12 @@ function HistoryCard({
   const [expanded, setExpanded] = useState(false);
   const maintenance = item.tipo === 'manutencao';
   const sentTime = displayTime(item.created_at);
+  const sentDate = sentTime ? displayDate(localDate(new Date(item.created_at))) : '';
   return (
     <View style={styles.card} testID={`history-${item.tipo}-${item.id}`}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`${maintenance ? 'Manutenção' : 'Registro de equipe'}, ${item.contrato}, ${item.placas.join(', ')}. Data: ${displayDate(item.data)}.${sentTime ? ` Enviado às ${sentTime}.` : ''} Ver detalhes`}
+        accessibilityLabel={`${maintenance ? 'Manutenção' : 'Registro de equipe'}, ${item.contrato}, ${item.placas.join(', ')}. Data do registro: ${displayDate(item.data)}.${sentTime ? ` Lançado em ${sentDate} às ${sentTime}.` : ''} Lançado por: ${item.autor_nome}. Ver detalhes`}
         accessibilityState={{ expanded }}
         onPress={() => setExpanded((v) => !v)}
       >
@@ -57,8 +63,7 @@ function HistoryCard({
             </Text>
           </View>
           <Text style={styles.date}>
-            {displayDate(item.data)}
-            {sentTime ? ` · ${sentTime}` : ''}
+            {sentDate ? `Lançado em ${sentDate} · ${sentTime}` : 'Data do lançamento indisponível'}
           </Text>
         </View>
         <Text style={styles.cardTitle}>
@@ -66,6 +71,7 @@ function HistoryCard({
             ? (item.detalhes[0]?.servico ?? 'Serviço realizado')
             : `Registro de ${item.detalhes.length === 1 ? 'equipe' : `${item.detalhes.length} equipes`}`}
         </Text>
+        <Text style={styles.registrationDate}>Data do registro: {displayDate(item.data)}</Text>
         <View style={styles.summaryLine}>
           <Text style={styles.summaryLabel}>Contrato</Text>
           <Text style={styles.contract}>{item.contrato}</Text>
@@ -74,6 +80,9 @@ function HistoryCard({
           <Text style={styles.summaryLabel}>{item.placas.length > 1 ? 'Placas' : 'Placa'}</Text>
           <Text style={styles.plates}>{item.placas.join(' · ')}</Text>
         </View>
+        <Text style={styles.author}>
+          Lançado por: <Text style={styles.authorName}>{item.autor_nome}</Text>
+        </Text>
         <View style={styles.cardBottom}>
           {maintenance ? (
             <Text style={styles.cost}>{currency(Number(item.custo))}</Text>
@@ -95,6 +104,9 @@ function HistoryCard({
                   {detail.responsavel ?? 'Motorista não identificado'}
                 </Text>
                 <Text style={styles.detailText}>Veículo: {detail.modelo}</Text>
+                {maintenance && !!detail.observacao && (
+                  <Text style={styles.detailText}>Observação: {detail.observacao}</Text>
+                )}
               </View>
             ))}
           </View>
@@ -124,12 +136,14 @@ function HistoryCard({
   );
 }
 export default function HistoryScreen() {
-  const { history, deleteEntry } = useFleet();
+  const { history, deleteEntry, getHistoryFilterOptions } = useFleet();
   const router = useRouter();
   const { atualizado, tipo } = useLocalSearchParams<{ atualizado?: string; tipo?: string }>();
-  const { profile, demo } = useAuth();
-  const [search, setSearch] = useState('');
-  const [query, setQuery] = useState('');
+  const { profile } = useAuth();
+  const [filters, setFilters] = useState(defaultHistoryFilters);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const listRef = useRef<FlatList<HistoryItem>>(null);
+  const filterOffset = useRef(0);
   const [type, setType] = useState<HistoryFilter>(
     tipo === 'manutencao' ? 'manutencao' : 'registro',
   );
@@ -173,10 +187,6 @@ export default function HistoryScreen() {
   useEffect(() => {
     if (tipo === 'registro' || tipo === 'manutencao') setType(tipo);
   }, [tipo]);
-  useEffect(() => {
-    const timer = setTimeout(() => setQuery(search.trim()), 300);
-    return () => clearTimeout(timer);
-  }, [search]);
   const load = useCallback(
     async (offset = 0, refresh = false) => {
       const request = ++generation.current;
@@ -185,7 +195,7 @@ export default function HistoryScreen() {
       setError('');
       setRetryOffset(offset);
       try {
-        const data = await history(query, offset, type);
+        const data = await history(filters, offset, type);
         if (request !== generation.current) return;
         setRows((prev) => (offset ? [...prev, ...data.slice(0, 20)] : data.slice(0, 20)));
         setHasMore(data.length > 20);
@@ -199,7 +209,7 @@ export default function HistoryScreen() {
         }
       }
     },
-    [history, query, type],
+    [history, filters, type],
   );
   useFocusEffect(
     useCallback(() => {
@@ -219,6 +229,7 @@ export default function HistoryScreen() {
   return (
     <>
       <FlatList
+        ref={listRef}
         data={rows}
         keyExtractor={(row) => `${row.tipo}-${row.id}`}
         renderItem={({ item }) => (
@@ -284,8 +295,12 @@ export default function HistoryScreen() {
                     accessibilityState={{ selected }}
                     aria-pressed={selected}
                     onPress={() => {
-                      setSearch('');
-                      setQuery('');
+                      setFiltersOpen(false);
+                      setFilters((prev) => ({
+                        ...prev,
+                        maintenanceTypeIds: [],
+                        driverIds: prev.driverIds.filter((id) => id !== 0),
+                      }));
                       setType(filter.value);
                       router.setParams({ tipo: filter.value });
                     }}
@@ -306,33 +321,34 @@ export default function HistoryScreen() {
                 );
               })}
             </View>
-            <View style={[ui.field, styles.search]}>
-              <Icon name="search" size={21} color={colors.muted} />
-              <TextInput
-                accessibilityLabel="Buscar por placa ou contrato"
-                placeholder="Buscar por placa ou contrato"
-                placeholderTextColor={colors.muted}
-                value={search}
-                onChangeText={setSearch}
-                style={styles.searchInput}
-                autoCorrect={false}
+            <View
+              onLayout={(event) => {
+                filterOffset.current = event.nativeEvent.layout.y;
+              }}
+            >
+              <HistoryFilters
+                value={filters}
+                type={type}
+                open={filtersOpen}
+                onOpenChange={setFiltersOpen}
+                loadOptions={getHistoryFilterOptions}
+                onInvalid={() =>
+                  listRef.current?.scrollToOffset({ offset: filterOffset.current, animated: true })
+                }
+                onApply={(next) => {
+                  setFilters(next);
+                  listRef.current?.scrollToOffset({ offset: 0, animated: false });
+                }}
               />
-              {!!search && (
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel="Limpar busca"
-                  onPress={() => setSearch('')}
-                  style={styles.clear}
-                >
-                  <Icon name="close" size={19} />
-                </Pressable>
-              )}
             </View>
             <View style={styles.resultsHeading}>
               <Text style={styles.resultsTitle}>
                 {type === 'registro' ? 'Registros de equipes' : 'Serviços de manutenção'}
               </Text>
-              <Text style={styles.resultsHint}>Mais recentes primeiro</Text>
+              <Text style={styles.resultsHint}>
+                {historyPeriodLabel(filters)} · Mais recentes primeiro
+              </Text>
+              <Text style={styles.resultsHint}>Pela data informada no registro</Text>
             </View>
             {!!error && (
               <ErrorNotice
@@ -350,22 +366,10 @@ export default function HistoryScreen() {
               <View style={styles.emptyIcon}>
                 <Icon name="history" size={37} color={colors.muted} />
               </View>
-              <Text style={styles.emptyTitle}>
-                {query ? 'Nenhum resultado encontrado' : 'Seu histórico começa aqui'}
-              </Text>
+              <Text style={styles.emptyTitle}>Nenhum lançamento neste período</Text>
               <Text style={styles.emptyText}>
-                {query
-                  ? 'Tente outra placa ou outro contrato.'
-                  : demo
-                    ? `Salve um exemplo em ${type === 'registro' ? 'Registro' : 'Manutenção'} para vê-lo aqui.`
-                    : `Seus envios de ${type === 'registro' ? 'equipes' : 'manutenção'} aparecerão nesta categoria.`}
+                Ajuste os filtros ou amplie o período para encontrar outros lançamentos.
               </Text>
-              {!query && (
-                <Button
-                  title={type === 'registro' ? 'Registrar equipe' : 'Registrar manutenção'}
-                  onPress={() => router.navigate(type === 'registro' ? '/registro' : '/manutencao')}
-                />
-              )}
             </View>
           ) : null
         }
@@ -375,8 +379,26 @@ export default function HistoryScreen() {
             {!error && hasMore && (
               <Button secondary title="Carregar mais" loading={loading} onPress={showMore} />
             )}
-            {!loading && rows.length > 0 && !hasMore && (
-              <Text style={styles.end}>Você chegou ao fim desta categoria.</Text>
+            {!loading && !error && !hasMore && (
+              <View style={styles.periodNotice}>
+                <Text style={styles.end}>
+                  {isDefaultHistoryPeriod(filters)
+                    ? 'Exibindo os últimos 7 dias. Para consultar lançamentos mais antigos, abra os filtros e escolha outro período.'
+                    : 'Fim dos resultados. Você pode ajustar os filtros para fazer uma nova consulta.'}
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Ajustar filtros"
+                  style={styles.adjustFilters}
+                  onPress={() => {
+                    setFiltersOpen(true);
+                    listRef.current?.scrollToOffset({ offset: 0, animated: true });
+                  }}
+                >
+                  <Icon name="filter" size={17} color={colors.orangeText} />
+                  <Text style={styles.detailsLink}>Ajustar filtros</Text>
+                </Pressable>
+              </View>
             )}
           </View>
         }
@@ -439,16 +461,14 @@ export default function HistoryScreen() {
 const styles = StyleSheet.create({
   page: { padding: 20, paddingBottom: 30, gap: 14 },
   heading: { gap: 20, marginBottom: 7 },
-  search: { flexDirection: 'row', gap: 10, alignItems: 'center', paddingRight: 5 },
-  searchInput: {
-    flex: 1,
-    minWidth: 0,
-    height: 54,
-    fontSize: 14,
-    color: colors.navy,
-    outlineWidth: 0,
+  periodNotice: { padding: 16, borderRadius: 14, backgroundColor: colors.blueSoft, gap: 8 },
+  adjustFilters: {
+    minHeight: 44,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
   },
-  clear: { height: 44, width: 38, alignItems: 'center', justifyContent: 'center' },
   filters: { flexDirection: 'row', gap: 8 },
   filter: {
     flex: 1,
@@ -530,11 +550,14 @@ const styles = StyleSheet.create({
   },
   badgeText: { fontSize: 11, fontWeight: '700' },
   date: { fontSize: 12, color: colors.muted },
+  registrationDate: { marginTop: 8, fontSize: 12, color: colors.muted },
   cardTitle: { fontSize: 18, fontWeight: '800', color: colors.navy, marginTop: 17 },
   summaryLine: { marginTop: 12, gap: 3 },
   summaryLabel: { fontSize: 11, color: colors.muted, fontWeight: '600' },
   contract: { fontSize: 15, color: colors.navy },
   plates: { fontSize: 14, fontWeight: '600', color: colors.navy, lineHeight: 21 },
+  author: { marginTop: 12, fontSize: 13, lineHeight: 20, color: colors.muted },
+  authorName: { color: colors.navy, fontWeight: '600' },
   cardBottom: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -567,5 +590,5 @@ const styles = StyleSheet.create({
     maxWidth: 280,
   },
   listFooter: { gap: 18, paddingTop: 10 },
-  end: { color: colors.muted, textAlign: 'center', fontSize: 12 },
+  end: { color: colors.muted, textAlign: 'center', fontSize: 12, lineHeight: 19 },
 });

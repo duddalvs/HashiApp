@@ -62,6 +62,7 @@ test('motorista nao identificado, Outros, ordem dos campos e edicao', async ({ p
     page.getByRole('button', { name: /^Placa:/ }),
     page.getByRole('button', { name: /^Motorista:/ }),
     page.getByRole('button', { name: /^Tipo de manutenção:/ }),
+    page.getByRole('textbox', { name: 'Observação', exact: true }),
     page.getByRole('textbox', { name: 'Valor', exact: true }),
   ];
   const positions = await Promise.all(fields.map(async (field) => (await field.boundingBox())!.y));
@@ -70,6 +71,8 @@ test('motorista nao identificado, Outros, ordem dos campos e edicao', async ({ p
   await select(page, 'Placa', 'BBE9E90', 'BBE9E90');
   await select(page, 'Tipo de manutenção', 'outros', 'Outros');
   await select(page, 'Contrato', 'mage', 'Magé');
+  const note = page.getByRole('textbox', { name: 'Observação', exact: true });
+  await note.fill('Verificar pneus');
   await page.getByRole('textbox', { name: 'Valor', exact: true }).fill('1000');
   await page.getByRole('button', { name: 'Salvar manutenção', exact: true }).click();
   await expect(
@@ -88,6 +91,9 @@ test('motorista nao identificado, Outros, ordem dos campos e edicao', async ({ p
   await page.getByRole('button', { name: 'Salvar manutenção', exact: true }).click();
   await page.getByRole('button', { name: 'Ver histórico', exact: true }).click();
   await expect(page.getByText('Outros', { exact: true })).toBeVisible();
+  await expect(
+    page.getByText('Lançado por: Usuário de demonstração', { exact: true }),
+  ).toBeVisible();
   await page.getByRole('button', { name: /Ver detalhes/ }).click();
   await expect(
     page.getByText('Motorista: Motorista não identificado', { exact: true }),
@@ -95,6 +101,7 @@ test('motorista nao identificado, Outros, ordem dos campos e edicao', async ({ p
   await page.getByRole('button', { name: 'Editar registro', exact: true }).click();
   await expect(checkbox).toBeChecked();
   const today = await page.getByLabel('Data', { exact: true }).inputValue();
+  await expect(note).toHaveValue('Verificar pneus');
   await page.getByLabel('Data', { exact: true }).fill('2099-01-01');
   await expect(page.getByLabel('Data', { exact: true })).toHaveValue(today);
   await checkbox.click();
@@ -137,7 +144,7 @@ test('menu inicial, dois botões no rodapé e histórico pelo menu', async ({ pa
   );
   await page.getByRole('button', { name: 'Manutenções', exact: true }).click();
   await expect(page.getByText('Serviços de manutenção', { exact: true })).toBeVisible();
-  await expect(page.getByText('Seu histórico começa aqui')).toBeVisible();
+  await expect(page.getByText('Nenhum lançamento neste período')).toBeVisible();
 });
 test('equipes dinâmicas, seleção obrigatória, salvar e buscar no histórico', async ({ page }) => {
   await enter(page);
@@ -171,6 +178,9 @@ test('equipes dinâmicas, seleção obrigatória, salvar e buscar no histórico'
   await expect(page.getByText('Exemplo salvo nesta sessão')).toBeVisible();
   await page.getByRole('button', { name: 'Ver histórico', exact: true }).click();
   await expect(page.getByText('Registro de 2 equipes')).toBeVisible();
+  await expect(
+    page.getByText('Lançado por: Usuário de demonstração', { exact: true }),
+  ).toBeVisible();
   await page.getByRole('button', { name: 'Apagar registro', exact: true }).click();
   await expect(page.getByText('Acesso negado', { exact: true })).toBeVisible();
   await expect(
@@ -187,10 +197,15 @@ test('equipes dinâmicas, seleção obrigatória, salvar e buscar no histórico'
   await page.getByRole('button', { name: 'Remover equipe 2', exact: true }).click();
   await page.getByRole('button', { name: 'Salvar alterações', exact: true }).click();
   await expect(page.getByText('Alterações salvas.', { exact: true })).toBeVisible();
+  await expect(
+    page.getByText('Lançado por: Usuário de demonstração', { exact: true }),
+  ).toBeVisible();
   await expect(page.getByText('Registro de equipe', { exact: true })).toBeVisible();
-  await page
-    .getByRole('textbox', { name: 'Buscar por placa ou contrato', exact: true })
-    .fill('sao');
+  await page.getByRole('button', { name: 'Filtros do histórico', exact: true }).click();
+  await page.getByRole('button', { name: /^Contrato:/ }).click();
+  await page.getByRole('checkbox', { name: 'São Gonçalo', exact: true }).click();
+  await page.getByRole('button', { name: /^Concluir seleção/ }).click();
+  await page.getByRole('button', { name: 'Aplicar filtros', exact: true }).click();
   await expect(page.getByText('Registro de equipe', { exact: true })).toBeVisible();
 });
 test('placa preenche modelo somente leitura, limpar apaga modelo e moeda salva', async ({

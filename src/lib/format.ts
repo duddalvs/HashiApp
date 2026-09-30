@@ -44,7 +44,7 @@ export function friendlyError(error: unknown) {
   if (/42501|permission denied|JWT|session/i.test(message))
     return 'Seu acesso precisa ser verificado. Entre novamente ou fale com o administrador.';
   if (
-    /Selecione|Usuário sem|Este envio|Este registro|Somente administradores|Registro não encontrado|Informe um usuário|inválid|A data não pode/i.test(
+    /Selecione|Usuário sem|Este envio|Este registro|Somente administradores|Registro não encontrado|Informe um usuário|inválid|A data não pode|A observação deve/i.test(
       message,
     )
   )

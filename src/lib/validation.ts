@@ -1,6 +1,7 @@
 import type { Catalogs, Maintenance, Registration } from '@/types/models';
 import { localDate, validDate } from './format';
 export type Errors = Record<string, string>;
+export const MAINTENANCE_NOTE_LIMIT = 40;
 export function validateRegistration(value: Registration, catalogs: Catalogs): Errors {
   const errors: Errors = {};
   if (!validDate(value.date)) errors.date = 'Escolha uma data válida.';
@@ -57,5 +58,7 @@ export function validateMaintenance(value: Maintenance, catalogs: Catalogs): Err
     errors.vehicle = 'Escolha uma placa da lista.';
   if (!/^\d{1,12}$/.test(value.costDigits))
     errors.cost = 'Informe o custo. Para custo zero, digite 0.';
+  if (Array.from(value.note ?? '').length > MAINTENANCE_NOTE_LIMIT)
+    errors.note = 'A observação deve ter no máximo 40 caracteres.';
   return errors;
 }

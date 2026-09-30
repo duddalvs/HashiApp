@@ -10,16 +10,26 @@ export function DateField({
   onChange,
   error,
   disabled,
+  label = 'Data',
+  placeholder = 'Sem limite',
+  errorTone = 'error',
 }: {
   value: string;
   onChange: (value: string) => void;
   error?: string;
   disabled?: boolean;
+  label?: string;
+  placeholder?: string;
+  errorTone?: 'error' | 'warning';
 }) {
   const [open, setOpen] = useState(false);
   const [dateError, setDateError] = useState('');
   const today = localDate();
   const message = dateError || error;
+  const errorStyle =
+    errorTone === 'warning'
+      ? { borderColor: colors.orange, borderWidth: 2 }
+      : { borderColor: colors.error };
   const pickerValue = parseLocalDate(validDate(value) && value <= today ? value : today);
   function change(next: string) {
     if (validDate(next) && next > localDate()) {
@@ -31,12 +41,13 @@ export function DateField({
   }
   return (
     <View>
-      <Text style={ui.label}>Data</Text>
+      <Text style={ui.label}>{label}</Text>
       {Platform.OS === 'web' ? (
-        <View style={[ui.field, styles.row, message && { borderColor: colors.error }]}>
+        <View style={[ui.field, styles.row, message && errorStyle]}>
           <Icon name="calendar" color={colors.muted} />
           <input
-            aria-label="Data"
+            aria-label={label}
+            aria-invalid={!!message}
             type="date"
             max={today}
             value={value}
@@ -61,18 +72,22 @@ export function DateField({
       ) : (
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={`Data: ${displayDate(value)}`}
+          accessibilityLabel={`${label}: ${value ? displayDate(value) : placeholder}`}
+          accessibilityHint={message || undefined}
           disabled={disabled}
           onPress={() => setOpen(true)}
-          style={[ui.field, styles.row, message && { borderColor: colors.error }]}
+          style={[ui.field, styles.row, message && errorStyle]}
         >
           <Icon name="calendar" color={colors.muted} />
-          <Text style={styles.value}>{displayDate(value)}</Text>
+          <Text style={styles.value}>{value ? displayDate(value) : placeholder}</Text>
           <Icon name="chevron" size={19} color={colors.muted} />
         </Pressable>
       )}
       {!!message && (
-        <Text accessibilityRole="alert" style={ui.error}>
+        <Text
+          accessibilityRole="alert"
+          style={[ui.error, errorTone === 'warning' && { color: colors.orangeText }]}
+        >
           {message}
         </Text>
       )}

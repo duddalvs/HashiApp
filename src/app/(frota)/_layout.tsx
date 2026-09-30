@@ -1,6 +1,7 @@
 import { ActivityIndicator, View } from 'react-native';
 import { Redirect, Slot } from 'expo-router';
 import { AppShell } from '@/components/AppShell';
+import { SelectOverlayProvider } from '@/components/SelectOverlay';
 import { FleetProvider } from '@/providers/FleetProvider';
 import { useAuth } from '@/providers/AuthProvider';
 import { colors } from '@/lib/theme';
@@ -15,9 +16,11 @@ export default function FleetLayout() {
   if (!demo && (!session || !profile?.ativo)) return <Redirect href="/login" />;
   return (
     <FleetProvider key={demo ? 'demo' : session!.user.id}>
-      <AppShell>
-        <Slot />
-      </AppShell>
+      <SelectOverlayProvider>
+        <AppShell>
+          <Slot />
+        </AppShell>
+      </SelectOverlayProvider>
     </FleetProvider>
   );
 }

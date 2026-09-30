@@ -16,7 +16,12 @@ for (const kind of ['registro', 'manutencao'] as const) {
     };
     const catalogs = {
       ...demoCatalogs,
-      employees: [fullName, 'Alves Carlos Moura', 'José João Gonçalves'].map((nome, index) => ({
+      employees: [
+        fullName,
+        'Alves Carlos Moura',
+        'José João Gonçalves',
+        ...Array.from({ length: 1500 }, (_, i) => `Pessoa de Teste ${i}`),
+      ].map((nome, index) => ({
         id: 101 + index,
         nome,
         ativo: true,
@@ -42,13 +47,14 @@ for (const kind of ['registro', 'manutencao'] as const) {
         });
       if (rpc === 'meu_perfil') return route.fulfill({ json: profile });
       if (rpc === 'listar_catalogos') return route.fulfill({ json: catalogs });
+      if (rpc === 'ultimo_veiculo_motorista') return route.fulfill({ json: null });
       if (rpc === `salvar_${kind}` || rpc === `editar_${kind}`) {
         const body = route.request().postDataJSON();
         writes.push(body);
         return route.fulfill({ json: body.p_id });
       }
       const saved = writes.at(-1);
-      if (rpc === 'buscar_historico')
+      if (rpc === 'filtrar_historico_multiplos')
         return route.fulfill({
           json: saved
             ? [
@@ -78,6 +84,7 @@ for (const kind of ['registro', 'manutencao'] as const) {
                         ],
                   custo: kind === 'registro' ? null : 10,
                   created_at: new Date().toISOString(),
+                  autor_nome: profile.nome,
                 },
               ]
             : [],
@@ -114,6 +121,12 @@ for (const kind of ['registro', 'manutencao'] as const) {
     const input = page.getByRole('textbox', { name: `Pesquisar ${label}`, exact: true });
     const option = page.getByRole('button', { name: fullName, exact: true });
     await trigger.click();
+    // Filtering must reach the full catalog, even though only visible rows render.
+    await input.pressSequentially('Pessoa 1499', { delay: 10 });
+    await expect(
+      page.getByRole('button', { name: 'Pessoa de Teste 1499', exact: true }),
+    ).toBeVisible();
+    await expect(input).toHaveValue('Pessoa 1499');
     for (const [query, highlights] of [
       ['Carlos', ['Carlos']],
       ['Eduardo', ['Eduardo']],
